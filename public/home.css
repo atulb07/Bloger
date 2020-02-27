@@ -1,0 +1,9 @@
+html{
+    height:100%;
+}
+
+body{
+    background: url(https://i.pinimg.com/originals/80/c1/40/80c1403a76ff653819f4ea28a615a4b5.jpg);
+    background-size: cover;
+    background-position: center;
+}

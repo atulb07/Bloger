@@ -1,0 +1,32 @@
+<%- include('../partials/head') %>
+
+<div class="jumbotron bg-white">
+    <div class="container">
+        <h1 class="display-3">EDIT</h1>
+        <p class="lead">You can edit your blogs here</p>
+        <hr class="my-2">
+        <p>Edit the details below!!!</p>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <form action="/blogs/<%=blog._id%>?_method=PUT" method="post">
+        <div class="form-group d-flex flex-column justify-content-between border border-secondary p-5">
+            <input type="text" name="blog[title]" class="form-control" placeholder="<%=blog.title%>" >
+            <small id="helpId" class="text-muted mb-2">Edit the title for the blog</small>
+
+            <input type="text" name="blog[image]" class="form-control" placeholder="<%=blog.image%>" >
+            <small id="helpId" class="text-muted mb-2">New url of an Image</small>
+            
+            <textarea class="form-control mb-2" name="blog[desc]" id="" rows="3"><%=blog.desc%></textarea>
+            
+            <button type="submit" class="btn btn-primary">edit</button>
+        </div>
+    </form>
+
+</div>
+
+
+<%- include('../partials/tail') %>

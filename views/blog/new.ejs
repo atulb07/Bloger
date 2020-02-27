@@ -1,0 +1,32 @@
+<%- include('../partials/head') %>
+
+<div class="jumbotron bg-white">
+    <div class="container">
+        <h1 class="display-3">New Blog</h1>
+        <p class="lead">You can create a new blog and post it here</p>
+        <hr class="my-2">
+        <p>Fill the form below!!!</p>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <form action="/blogs" method="post">
+        <div class="form-group d-flex flex-column justify-content-between border border-secondary p-5">
+            <input type="text" name="blog[title]" class="form-control" placeholder="title" >
+            <small id="helpId" class="text-muted mb-2">Enter the title for the blog</small>
+
+            <input type="text" name="blog[image]" class="form-control" placeholder="image url" >
+            <small id="helpId" class="text-muted mb-2">Give the url of an Image</small>
+            
+            <textarea class="form-control mb-2" name="blog[desc]" id="" rows="3"></textarea>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+</div>
+
+
+<%- include('../partials/tail') %>

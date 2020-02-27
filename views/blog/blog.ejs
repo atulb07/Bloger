@@ -1,0 +1,80 @@
+<%- include('../partials/head') %>
+
+<div class="jumbotron bg-white">
+    <div class="container">
+        <h1 class="display-3"><%= blog.title%></h1>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="card">
+        <img class="card-img-top" src="<%=blog.image%>" alt="">
+        <div class="card-body">
+            <h4 class="card-title"><%=blog.title%></h4>
+            <p class="card-text"><%=blog.desc%></p>
+            <div class="d-flex flex-column align-items-end pt-4">
+                <p> - <%= blog.author %></p>
+                <small class="text-muted"><%= blog.date %></small>    
+            </div>
+            <% if(currentUser){ %>
+            <% if(blog.author==currentUser.username) { %>
+                <div class="d-flex justify-content-center">
+                    <a href="/blogs/<%=blog.id%>/edit" class="btn btn-success my-2 mx-5 px-5">EDIT</a>
+                    <form action="/blogs/<%=blog.id%>?_method=DELETE" method="post">
+                        <button type="submit" class="btn btn-danger my-2 mx-5 px-5">DELETE</button>
+                    </form>
+                </div>
+            <% }} %>
+        </div>
+    </div>
+
+        <div class="container mt-5 bg-white rounded-sm">
+        
+            <div class="d-flex flex-column ">
+                <h1 class="display-5 m-2">Comments:</h1>
+
+                <% if(currentUser){ %>
+                    <div class="my-3 border border-muted rounded-lg">
+                        <form action="/blogs/<%=blog.id%>/comment" method="post">
+                            <h1 class="display-5 m-2">Your Comment:</h1>
+                            <div class="form-group container d-flex flex-column">
+                                <input type="text" name="comment[content]" id="" class="form-control" placeholder="content" >
+                                <small id="helpId" class="text-muted">content </small>
+                                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                            </div>        
+                        </form>
+                    </div>
+                <% } else { %>
+                    <div class="m-2">
+                        <a href="/login" class="btn btn-success">New Comment:</a>        
+                    </div>
+                <% } %>
+            </div>
+
+
+            <div class="container">
+                <% if(comments.length==0){ %>
+                    <h1>No comments</h1>
+                <% } else { %>
+                    <% for(i=0;i< comments.length;i++){ %>
+                        <h3 ><strong><%= comments[i].author %></strong></h3>
+                        <h4 ><%= comments[i].content %>...</h4>
+                        <% if(currentUser){ %> 
+                            <% if(currentUser.username == comments[i].author ){ %>
+                        <div class="d-flex">      
+                            <h5 class="flex-grow-1"><small class="text-muted "><%= comments[i].date %></small></h5>  
+                            <form action="/blogs/<%=blog.id %>/comment/<%= comments[i].id %>?_method=DELETE"," method="post">
+                                <button type="submit" class="btn btn-danger btn-sm mx-3"> DELETE </button>
+                            </form>
+                        </div>     
+                        <% }}else { %>
+                        <h5 class="flex-grow-1"><small class="text-muted "><%= comments[i].date %></small></h5>
+                        <% } %>
+                        <hr>
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+<%- include('../partials/tail') %>

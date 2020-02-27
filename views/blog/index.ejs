@@ -1,0 +1,40 @@
+<%- include('../partials/head') %>
+
+<div class="jumbotron bg-white">
+    <div class="container">
+        <h1 class="display-3">All Blogs</h1>
+        <p class="lead">The blogs that have been posted so far are:</p>
+        <hr class="my-2">
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="/blogs/new" role="button">New blogs</a>
+        </p>
+    </div>
+</div>
+
+
+
+<div class="container">
+    
+    <div class="d-flex flex-column ">
+        <% for(i=0;i< blogs.length;i++){ %>
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="<%= blogs[i].image %>" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= blogs[i].title %></h5>
+                        <p class="card-text"><%= blogs[i].desc.substr(0,200) %>...</p>
+                        <p class="card-text"><small class="text-muted"><%= blogs[i].date %></small></p>
+                        <a href="/blogs/<%= blogs[i]._id%>" class="btn btn-primary">Show More</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+
+</div>
+
+<%- include('../partials/tail') %>
