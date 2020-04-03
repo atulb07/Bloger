@@ -82,7 +82,6 @@ app.use("/blogs/:id/comment",commentRoutes);
 //Start Server
 //**************************************************
 
-//app.listen
 app.listen(process.env.PORT,process.env.IP,function(){
       console.log("Bloger Website online")
 })

@@ -8,21 +8,33 @@
     </div>
 </div>
 
-
 <div class="container" >
 
     <form action="/register" method="post">
         <div class="form-group d-flex flex-column justify-content-between border border-secondary rounded-lg p-5  bg-white" style="max-width: 500px; margin: auto;">
             <input type="text" name="username" class="form-control" placeholder="Username" required>
             <small id="helpId" class="text-muted mb-2">Enter username</small>
-
-            <input type="password" name="password" class="form-control" placeholder="Password" required>
-            <small id="helpId" class="text-muted mb-2">Enter Password</small>  
-            <button type="submit" class="btn btn-primary">Submit</button>            
+            <input id="checkpass" type="password" name="password" class="form-control" placeholder="Password" required onkeyup="trying()">
+            <small id="helpId" class="text-muted mb-2">More than 6 letter password</small>
+            <small id="helpId" class="text-muted mb-2">Contain at least one numeric digit, one uppercase and one lowercase letter.</small>   
+            <button id="btnSubmit" type="submit" class="btn btn-primary" disabled>Submit</button>            
         </div>
     </form>
 
 </div>
+
+<script>	
+    function trying(name){
+        var pass = $("#checkpass").val();
+        var paswd=  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+        if(pass.match(paswd)) { 
+            $('#btnSubmit').attr("disabled",false );	
+        }
+        else{
+            $('#btnSubmit').attr("disabled",true );
+        }
+    } 
+</script>
 
 
 <%- include('../partials/tail') %>
