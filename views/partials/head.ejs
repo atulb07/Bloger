@@ -36,8 +36,21 @@
             <a class="btn btn-outline-secondary m-2 my-sm-0" href="/logout" type="submit">logout <strong><%= currentUser.username %> </strong></a>
             <a href="#"></a>
             <% } %>
-
+            
         </div>
     
     </nav>
+
+    <% if(Ferror && Ferror.length>0){ %>
+        <div class="alert alert-danger" role="alert">
+            <strong><%=Ferror %></strong> 
+        </div>
+    <% } %>
+    <% if(Fsuccess && Fsuccess.length>0){ %>
+        <div class="alert alert-success" role="alert">
+            <strong><%=Fsuccess %></strong> 
+        </div>
+    <% } %>    
+    
+
     <!-- Optional JavaScript -->

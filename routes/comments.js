@@ -19,7 +19,7 @@ router.post("/",function(req,res){
         else{
             blog.findOne({_id:req.params.id},function(er,found){
                 if(er){
-                    console.log("Blog not found while new co,ment is made")
+                    console.log("Blog not found while new comment is made")
                 }
                 else{
                     found.comments.push(item);
@@ -27,6 +27,7 @@ router.post("/",function(req,res){
                 }
             })
             console.log(item);
+            req.flash("success","Comment Added Successfully");
             res.redirect("/blogs/"+req.params.id);        
         }
     })
@@ -39,6 +40,7 @@ router.delete("/:cid",function(req,res){
         }
         else{
             console.log(item + "deleted");
+            req.flash("success","Comment Deleted Successfully");
             res.redirect("/blogs/"+req.params.id);
         }
     });

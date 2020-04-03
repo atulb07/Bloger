@@ -23,14 +23,18 @@ var passport = require('passport');
 var passportLocal = require('passport-local');
 var passportLocalMongoose = require('passport-local-mongoose');
 
+//flash message 
+var flash = require('connect-flash');
+app.use(flash()); 
+
 //**************************************************
 //Database Stuff
 //**************************************************
 
 //mongoose
 var mongoose = require("mongoose");
-//mongoose.connect("mongodb://localhost/bloger")
-mongoose.connect("mongodb+srv://atul:kantulji@cluster0-cgsb8.mongodb.net/bloger?retryWrites=true&w=majority");
+mongoose.connect("mongodb://localhost/bloger")
+//mongoose.connect("mongodb+srv://atul:kantulji@cluster0-cgsb8.mongodb.net/bloger?retryWrites=true&w=majority");
 
 
 //blogs - pic, title, desc, date
@@ -63,6 +67,8 @@ passport.deserializeUser(user.deserializeUser());
 
 app.use(function(req,res,next){
     res.locals.currentUser = req.user;
+    res.locals.Ferror = req.flash("error");
+    res.locals.Fsuccess = req.flash("success");
     next();
 })
 
@@ -82,9 +88,9 @@ app.use("/blogs/:id/comment",commentRoutes);
 //Start Server
 //**************************************************
 
-app.listen(process.env.PORT,process.env.IP,function(){
-      console.log("Bloger Website online")
-})
-// app.listen(3000,function(){
-//     console.log("Bloger Website online")
+// app.listen(process.env.PORT,process.env.IP,function(){
+//       console.log("Bloger Website online")
 // })
+app.listen(3000,function(){
+    console.log("Bloger Website online")
+})

@@ -7,6 +7,7 @@ function isLogged(req,res,next){
     if(req.isAuthenticated()){
         return next();
     }
+    req.flash("error","Please log in!!!");
     res.redirect("/login");
 }
 
@@ -52,6 +53,7 @@ router.post("/blogs",function(req,res){
         }
         else{
             console.log(item);
+            req.flash("success","Blog Created Successfully");
             res.redirect("/blogs");        
         }
     })
@@ -71,7 +73,7 @@ router.get("/blogs/:id",function(req,res){
 })
 
 //edit
-router.get("/blogs/:id/edit",function(req,res){
+router.get("/blogs/:id/edit",isLogged,function(req,res){
     blog.findById(req.params.id,function(err,item){
         if(err){
             console.log("Error in finding from Database");
@@ -93,19 +95,21 @@ router.put("/blogs/:id",function(req,res,next){
                 console.log("Item cannot be updated");
             }
             else{
+                req.flash("success","Blog Updated Successfully")
                 res.redirect("/blogs/"+req.params.id)
             }
         })
 })
 
 //delete
-router.delete("/blogs/:id",function(req,res){
+router.delete("/blogs/:id",isLogged,function(req,res){
     blog.findByIdAndRemove(req.params.id,function(err,item){
         if(err){
             console.log("Item cannot be deleted");
         }
         else{
             console.log(item + "deleted");
+            req.flash("success","Blog Deleted Successfully");
             res.redirect("/blogs");
         }
     });
