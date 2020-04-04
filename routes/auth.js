@@ -14,7 +14,9 @@ router.get("/login",function(req,res){
 //LOGIN
 router.post("/login",passport.authenticate("local",{
     successRedirect:"/blogs",
-    failureRedirect:"/login"
+    successFlash: 'Welcome!',
+    failureRedirect:"/login",
+    faliureFlash: 'Invalid username or password.'
 }), function(req,res){
 })
 
@@ -26,13 +28,11 @@ router.get("/register",function(req,res){
 router.post("/register",function(req,res){
     user.register(new user({username:req.body.username}),req.body.password,function(err,user){
         if(err){
-          console.log(err);
           req.flash("error",err);
-          res.render("auth/register");
+          res.redirect("/register");
         }
         else{
             passport.authenticate("local")(req,res,function(){
-                console.log(user + "registered successfully");
                 req.flash("success","User Registered successfully");
                 res.redirect("/blogs");
             })
